@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <mata charset="utf-8">
+    <title>メモアプリ</title>
+</head>
+<link rel="stylesheet" href="/style.css">
+<body>
+    <section>
+        <h1>
+          <a href="http://localhost:4567/">メモアプリ</a>
+        </h1>
+    </section>
+    <section>
+        <form class="edit-layout" action="/memo/<%= @editfile[0] %>" method="POST">
+            <input type="hidden" name="_method" value="PATCH">
+            <input class="title-edit-memo" placeholder="タイトル(15文字以内)" name="title" maxlength="15" value="<%= @title %>" required>
+            <textarea class="content-edit-memo" name="content" placeholder="内容(120文字以内)" maxlength="120" value="test" required><%= @test %></textarea>
+            <input class="add-edit-memo" type="submit" value="更新">
+        </form>
+    </section>
+</body>
+</html>

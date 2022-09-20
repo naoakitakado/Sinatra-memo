@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <mata charset="utf-8">
+    <title>メモアプリ</title>
+</head>
+<link rel="stylesheet" href="/style.css">
+<body>
+    <section>
+        <h1>
+            <a href="http://localhost:4567/">メモアプリ</a>
+        </h1>
+    </seciton>
+    <section>
+        <form action="strage" method="POST">
+            <div class="newmemo">
+                <input class="title-new-memo" placeholder="タイトル(15文字以内)" name="title" maxlength="15" required>
+                <textarea class="content-new-memo" name="content" placeholder="内容(120文字以内)" maxlength="120" required></textarea>
+                <input class="add-new-memo" type="submit" value="追加">
+            </div>
+        </form>
+    </section>
+</div>
+</body>
+</html>

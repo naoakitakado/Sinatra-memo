@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <mata charset="utf-8">
+    <title>メモアプリ</title>
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <section>
+        <div class="addbotan-position">
+            <h1>
+                <a href="http://localhost:4567/">メモアプリ</a>
+            </h1>
+            <button class="add-botan" type=“button” onclick="location.href='http://localhost:4567/new'">追加</button>
+        </div>
+    </section>
+    <section>
+        <ul>
+            <% @titles.zip(@memolist) do |title,filename| %>
+            <li>
+                <a href="http://localhost:4567/memo/<%= filename %>"><%= title %></a>
+            </li>
+            <% end %>
+        </ul>
+    </section>
+</body>
+</html>

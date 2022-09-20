@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <mata charset="utf-8">
+    <title><メモアプリ</title>
+</head>
+<link rel="stylesheet" href="/style.css">
+<body>
+    <section>
+        <h1>
+            <a href="http://localhost:4567/">メモアプリ</a>
+        </h1>
+    </section>
+    <section>
+        <p class="title-show-font"><%= @title %></p>
+        <% @contents.each do |content| %>
+            <p style="margin:0px;"><%= content %></p>
+        <% end %>
+        <div class="button-show-layout">
+            <form class="button-show-update" action="/memo/<%= @filename[0] %>" method="POST">
+                <input type="submit" value="更新">
+            </form>
+            <form action="/memo/<%= @filename[0] %>" method="POST">
+                <input type="hidden" name="_method" value="DELETE">
+                <input type="submit" value="削除">
+            </form>
+        </div>
+    </section>
+</body>
+</html>
