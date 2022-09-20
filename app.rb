@@ -2,6 +2,7 @@
 
 require 'sinatra'
 require 'sinatra/reloader'
+require 'cgi/escape'
 
 get '/' do
   path = './views/memo/'
@@ -51,16 +52,16 @@ post '/strage' do
   @memolist.each do |item|
     File.open("#{path}#{item}", 'r') { |f| @titles << f.gets.chomp }
   end
-  erb :top
+  redirect 'http://localhost:4567/'
 end
 
 get '/memo/*' do
   path = './views/memo/'
   @memolist = []
-  @filename = params['splat']
+  @filename = CGI.escapeHTML(params['splat'][0].to_s)
 
   @memo = []
-  File.foreach("#{path}#{@filename[0]}") { |f| @memo << f.chomp }
+  File.foreach("#{path}#{CGI.unescapeHTML(@filename)}") { |f| @memo << f.chomp }
   @title =  @memo[0]
   @contents = @memo[1..]
   erb :show
@@ -70,10 +71,10 @@ post '/memo/*' do
   path = './views/memo/'
   @memolist = []
   @titles = []
-  @editfile = params['splat']
+  @editfile = CGI.escapeHTML(params['splat'][0].to_s)
   @memo = []
 
-  File.foreach("#{path}#{@editfile[0]}") { |f| @memo << f.chomp }
+  File.foreach("#{path}#{CGI.unescapeHTML(@editfile)}") { |f| @memo << f.chomp }
   @title =  @memo[0]
   @contents = @memo[1..]
   @test = @contents.join('&#13;&#10;')
@@ -82,9 +83,9 @@ end
 
 patch '/memo/*' do
   path = './views/memo/'
-  @editfile = params['splat']
-  @title = params[:title]
-  @contents = params[:content]
+  @editfile = CGI.escapeHTML(params['splat'][0].to_s)
+  @title = CGI.escapeHTML(params[:title][0].to_s)
+  @contents = CGI.escapeHTML(params[:content].to_s)
 
   file = File.new("#{path}#{@editfile[0]}", 'w')
   file.puts @title.to_s
@@ -106,7 +107,7 @@ patch '/memo/*' do
     File.open("#{path}#{filename}", 'r') { |f| @titles << f.gets.chomp }
   end
 
-  erb :top
+  redirect 'http://localhost:4567/'
 end
 
 delete '/memo/*' do
@@ -114,8 +115,8 @@ delete '/memo/*' do
   @memolist = []
   @titles = []
 
-  deletefile = params['splat']
-  File.delete("#{path}#{deletefile[0]}")
+  deletefile = CGI.escapeHTML(params['splat'][0].to_s)
+  File.delete("#{path}#{CGI.unescapeHTML(deletefile)}")
 
   Dir.foreach(path.to_s) do |item|
     case item
@@ -130,5 +131,5 @@ delete '/memo/*' do
     File.open("#{path}#{filename}", 'r') { |f| @titles << f.gets.chomp }
   end
 
-  erb :top
+  redirect 'http://localhost:4567/'
 end
