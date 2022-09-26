@@ -16,7 +16,7 @@ $ git checkout -b sinatra-memo origin/sinatra-memo
 
 3. Gemfileにリスト化したgemを一括インストール　　
 ```
-$ bundle install --path vendor/bundle
+$ bundle install
 ```
 4. アプリケーションを立ち上げます。
 ```
