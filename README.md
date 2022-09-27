@@ -6,7 +6,7 @@ sinatraを使ったメモアプリのプログラムです。
 
 1. 作業PCの任意の作業ディレクトリにて git clone してください。
 ```
-$ https://github.com/自分のアカウント名/Sinatra-memo.git
+$ git clone https://github.com/自分のアカウント名/Sinatra-memo.git
 ```
 
 2. メモアプリが実装しているブランチにチェックアウトしてください
