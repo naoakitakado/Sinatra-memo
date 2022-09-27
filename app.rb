@@ -11,7 +11,7 @@ get '/' do
 
   Dir.foreach(path.to_s) do |item|
     case item
-    when '.', '..','.gitkeep'
+    when '.', '..', '.gitkeep'
       nil
     else
       @memolist << item
@@ -42,7 +42,7 @@ post '/strage' do
   file.close
   Dir.foreach(path.to_s) do |item|
     case item
-    when '.', '..','.gitkeep'
+    when '.', '..', '.gitkeep'
       nil
     else
       @memolist << item
@@ -97,7 +97,7 @@ patch '/memo/*' do
 
   Dir.foreach(path.to_s) do |item|
     case item
-    when '.', '..','.gitkeep'
+    when '.', '..', '.gitkeep'
       nil
     else
       @memolist << item
