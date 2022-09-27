@@ -13,13 +13,18 @@ $ https://github.com/自分のアカウント名/Sinatra-memo.git
 ```
 $ git checkout -b sinatra-memo origin/sinatra-memo
 ```
+3. rubyのバージョンは`.ruby-version`ファイルに書かれているものと合わせる。
 
-3. Gemfileにリスト化したgemを一括インストール　　
+4. Gemfileにリスト化したgemを一括インストール
 ```
 $ bundle install
 ```
-4. アプリケーションを立ち上げます。
+5. 4のインストールが失敗したときにはアップデートを行う
+```
+$ bundle update
+```
+6. アプリケーションを立ち上げます。
 ```
 $ bundle exec ruby app.rb
 ```
-5. `http://localhost:4567/`アクセスするとメモアプリのトップページが表示されます。
+7. `http://localhost:4567/`アクセスするとメモアプリのトップページが表示されます。
