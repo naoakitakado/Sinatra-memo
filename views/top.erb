@@ -1,16 +1,16 @@
 <section>
     <div class="addbotan-position">
         <h1>
-            <a href="./">メモアプリ</a>
+            <a href="/">メモアプリ</a>
         </h1>
-        <button class="add-botan" type=“button” onclick="location.href='./memo/new'">追加</button>
+        <button class="add-botan" type=“button” onclick="location.href='/memo/new'">追加</button>
     </div>
 </section>
 <section>
     <ul>
         <% @memos.each do |id,post| %>
             <li>
-                <a href="./memo/<%= id %>"><%= CGI.escapeHTML(post["title"]) %></a>
+                <a href="/memo/<%= id %>"><%= CGI.escapeHTML(post["title"]) %></a>
             </li>
         <% end %>
     </ul>
