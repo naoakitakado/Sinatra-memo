@@ -1,13 +1,13 @@
 <section>
         <h1>
-          <a href="http://localhost:4567/">メモアプリ</a>
+          <a href="./">メモアプリ</a>
         </h1>
 </section>
-<section>
+<sectio>
     <form class="edit-layout" action="/memo/<%= params[:id] %>" method="POST">
         <input type="hidden" name="_method" value="PATCH">
         <input class="title-edit-memo" name="title" value="<%= @title %>" required>
         <textarea class="content-edit-memo" name="content" value="test" required><%= @content %></textarea>
         <input class="add-edit-memo" type="submit" value="更新">
     </form>
-</section>
+</sectio
