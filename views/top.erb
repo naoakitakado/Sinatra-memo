@@ -1,4 +1,3 @@
-
 <section>
     <div class="addbotan-position">
         <h1>
@@ -9,9 +8,9 @@
 </section>
 <section>
     <ul>
-        <% @titles.zip(@memolist) do |title,filename| %>
+        <% @memos.each do |id,post| %>
             <li>
-                <a href="./memo/<%= filename %>"><%= title %></a>
+                <a href="./memo/<%= id %>"><%= CGI.escapeHTML(post["title"]) %></a>
             </li>
         <% end %>
     </ul>

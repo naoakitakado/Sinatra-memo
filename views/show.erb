@@ -5,15 +5,13 @@
     </h1>
 </section>
 <section>
-    <p class="title-show-font"><%= @title %></p>
-    <% @contents.each do |content| %>
-        <p><%= content %></p>
-    <% end %>
+    <p class="title-show-font"><%= CGI.escapeHTML(@title) %></p>
+    <p><%= CGI.escapeHTML(@content).gsub(/\r\n/, '<br/>') %></p>
     <div class="button-show-layout">
-        <form class="button-show-update" action="/memo/edit/<%= @filename %>" method="GET">
+        <form class="button-show-update" action="/memo/<%= params[:id] %>/edit" method="GET">
             <input type="submit" value="更新">
         </form>
-        <form action="/memo/<%= @filename %>" method="POST">
+        <form action="/memo/<%= params[:id] %>" method="POST">
             <input type="hidden" name="_method" value="DELETE">
             <input type="submit" value="削除">
         </form>
