@@ -3,13 +3,15 @@
 require 'sinatra'
 require 'sinatra/reloader'
 require 'cgi/escape'
+require 'dotenv/load'
+
+PATH = './views/memo/'
 
 get '/' do
-  path = './views/memo/'
   @memolist = []
   @titles = []
 
-  Dir.foreach(path.to_s) do |item|
+  Dir.foreach(PATH.to_s) do |item|
     case item
     when '.', '..', '.gitkeep'
       nil
@@ -18,107 +20,104 @@ get '/' do
     end
   end
   @memolist.each do |filename|
-    File.open("#{path}#{filename}", 'r') { |f| @titles << f.gets.chomp }
+    File.open("#{PATH}#{filename}", 'r') { |f| @titles << f.gets.chomp }
   end
 
   erb :top
 end
 
-get '/new' do
+get '/memo/new' do
   erb :new
 end
 
-post '/strage' do
-  path = './views/memo/'
-  @memolist = []
+post '/memo' do
+  memolist = []
   @titles = []
   @title = params[:title]
   @content = params[:content]
 
   filename = ('A'..'Z').to_a.sample(11).join
-  file = File.new("./views/memo/#{filename}.txt", 'w')
+
+  File.open("./views/memo/#{filename}.txt", 'w') do |file|
   file.puts @title.to_s
   file.puts @content.to_s
-  file.close
-  Dir.foreach(path.to_s) do |item|
+  end
+  Dir.foreach(PATH.to_s) do |item|
     case item
     when '.', '..', '.gitkeep'
       nil
     else
-      @memolist << item
+      memolist << item
     end
   end
 
-  @memolist.each do |item|
-    File.open("#{path}#{item}", 'r') { |f| @titles << f.gets.chomp }
+  memolist.each do |item|
+    File.open("#{PATH}#{item}", 'r') { |f| @titles << f.gets.chomp }
   end
-  redirect 'http://localhost:4567/'
+
+  redirect './'
 end
 
-get '/memo/*' do
-  path = './views/memo/'
-  @memolist = []
-  @filename = CGI.escapeHTML(params['splat'][0].to_s)
+get '/memo/:file' do
+  @filename = CGI.escapeHTML(params['file'].to_s)
 
-  @memo = []
-  File.foreach("#{path}#{CGI.unescapeHTML(@filename)}") { |f| @memo << f.chomp }
-  @title =  @memo[0]
-  @contents = @memo[1..]
+  memo = []
+  File.foreach("#{PATH}#{CGI.unescapeHTML(@filename)}") { |f| memo << f.chomp }
+  @title =  memo[0]
+  @contents = memo[1..]
   erb :show
 end
 
-post '/memo/*' do
-  path = './views/memo/'
-  @memolist = []
-  @titles = []
-  @editfile = CGI.escapeHTML(params['splat'][0].to_s)
+get '/memo/edit/:file' do
+  memolist = []
+  titles = []
+  @editfile = CGI.escapeHTML(params['file'])
   @memo = []
 
-  File.foreach("#{path}#{CGI.unescapeHTML(@editfile)}") { |f| @memo << f.chomp }
+  File.foreach("#{PATH}#{CGI.unescapeHTML(@editfile)}") { |f| @memo << f.chomp }
   @title =  @memo[0]
-  @contents = @memo[1..]
-  @test = @contents.join('&#13;&#10;')
+  contents = @memo[1..]
+  @content = contents.join("\n")
   erb :edit
 end
 
-patch '/memo/*' do
-  path = './views/memo/'
-  @editfile = CGI.escapeHTML(params['splat'][0].to_s)
-  @title = CGI.escapeHTML(params[:title][0].to_s)
-  @contents = CGI.escapeHTML(params[:content].to_s)
+patch '/memo/edit/:file' do
+  editfile = CGI.escapeHTML(params['file'])
+  @title = CGI.escapeHTML(params[:title].to_s)
+  contents = CGI.escapeHTML(params[:content].to_s)
 
-  file = File.new("#{path}#{@editfile[0]}", 'w')
+  File.open("./views/memo/#{filename}.txt", 'w') do |file|
   file.puts @title.to_s
-  file.puts @contents.to_s
-  file.close
+  file.puts @content.to_s
+  end
 
-  @memolist = []
+  memolist = []
   @titles = []
 
-  Dir.foreach(path.to_s) do |item|
+  Dir.foreach(PATH.to_s) do |item|
     case item
     when '.', '..', '.gitkeep'
       nil
     else
-      @memolist << item
+      memolist << item
     end
   end
-  @memolist.each do |filename|
-    File.open("#{path}#{filename}", 'r') { |f| @titles << f.gets.chomp }
+  memolist.each do |filename|
+    File.open("#{PATH}#{filename}", 'r') { |f|  @titles << f.gets.chomp }
   end
 
-  redirect 'http://localhost:4567/'
+
+  redirect './'
 end
 
-delete '/memo/*' do
-  path = './views/memo/'
+delete '/memo/:file' do
   @memolist = []
   @titles = []
 
-  deletefile = CGI.escapeHTML(params['splat'][0].to_s)
-  File.delete("#{path}#{CGI.unescapeHTML(deletefile)}")
+  deletefile = CGI.escapeHTML(params['file'])
+  File.delete("#{PATH}#{CGI.unescapeHTML(deletefile)}")
 
-  Dir.foreach(path.to_s) do |item|
+  Dir.foreach(PATH.to_s) do |item|
     case item
     when '.', '..'
       nil
@@ -127,5 +126,5 @@ delete '/memo/*' do
     end
   end
 
-  redirect 'http://localhost:4567/'
+  redirect './'
 end

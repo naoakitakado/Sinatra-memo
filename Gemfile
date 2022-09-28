@@ -7,3 +7,4 @@ gem 'webrick'
 gem 'sinatra-contrib'
 gem 'redcarpet' 
 gem 'erb_lint', require: false
+gem 'dotenv'

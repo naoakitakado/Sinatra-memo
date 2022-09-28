@@ -23,6 +23,7 @@ GEM
     builder (3.2.4)
     concurrent-ruby (1.1.10)
     crass (1.0.6)
+    dotenv (2.8.1)
     erb_lint (0.2.0)
       activesupport
       better_html (>= 2.0.1)
@@ -95,6 +96,7 @@ PLATFORMS
   x86_64-darwin-21
 
 DEPENDENCIES
+  dotenv
   erb_lint
   redcarpet
   sinatra
