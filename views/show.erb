@@ -5,8 +5,8 @@
     </h1>
 </section>
 <section>
-    <p class="title-show-font"><%= CGI.escapeHTML(@title) %></p>
-    <p><%= CGI.escapeHTML(@content).gsub(/\r\n/, '<br/>') %></p>
+    <p class="title-show-font"><%= CGI.escapeHTML(@memos[params[:id]]['title']) %></p>
+    <p><%= CGI.escapeHTML(@memos[params[:id]]['content']).gsub(/\r\n/, '<br/>') %></p>
     <div class="button-show-layout">
         <form class="button-show-update" action="/memo/<%= params[:id] %>/edit" method="GET">
             <input type="submit" value="更新">
