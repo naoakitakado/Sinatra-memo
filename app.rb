@@ -7,16 +7,16 @@ require 'cgi/escape'
 
 PATH = './memos.json'
 
-def getmemos
+def memos
   File.open(PATH) { |file| JSON.parse(file.read) }
 end
 
-def setmemos(memos)
+def keep_memos(memos)
   File.open(PATH, 'w') { |file| JSON.dump(memos, file) }
 end
 
 get '/' do
-  @memos = getmemos
+  @memos = memos
   erb :top
 end
 
@@ -25,7 +25,7 @@ get '/memo/new' do
 end
 
 get '/memo/:id' do
-  @memo = getmemos[params[:id]]
+  @memo = memos[params[:id]]
   erb :show
 end
 
@@ -33,20 +33,20 @@ post '/memo' do
   title = params[:title]
   content = params[:content]
 
-  memos = getmemos
+  memos = memos()
   id = if memos.to_s == '{}'
          '1'
        else
          (memos.keys.map(&:to_i).max + 1).to_s
        end
   memos[id] = { 'title' => title, 'content' => content }
-  setmemos(memos)
+  keep_memos(memos)
 
   redirect '/'
 end
 
 get '/memo/:id/edit' do
-  @memo = getmemos[params[:id]]
+  @memo = memos[params[:id]]
   erb :edit
 end
 
@@ -54,17 +54,17 @@ patch '/memo/:id' do
   title = params[:title]
   content = params[:content]
 
-  memos = getmemos
+  memos = memos()
   memos[params[:id]] = { 'title' => title, 'content' => content }
-  setmemos(memos)
+  keep_memos(memos)
 
   redirect "/memo/#{params[:id]}"
 end
 
 delete '/memo/:id' do
-  memos = getmemos
+  memos = memos()
   memos.delete(params[:id])
-  setmemos(memos)
+  keep_memos(memos)
 
   redirect '/'
 end
