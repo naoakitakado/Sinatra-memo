@@ -1,0 +1,19 @@
+
+<section>
+    <h1>
+        <a href="/">メモアプリ</a>
+    </h1>
+</section>
+<section>
+    <p class="title-show-font"><%= CGI.escapeHTML(@memo['title']) %></p>
+    <p><%= CGI.escapeHTML(@memo['content']).gsub(/\r\n/, '<br/>') %></p>
+    <div class="button-show-layout">
+        <form class="button-show-update" action="/memo/<%= params[:id] %>/edit" method="GET">
+            <input type="submit" value="更新">
+        </form>
+        <form action="/memo/<%= params[:id] %>" method="POST">
+            <input type="hidden" name="_method" value="DELETE">
+            <input type="submit" value="削除">
+        </form>
+     </div>
+</section>

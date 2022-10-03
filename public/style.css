@@ -1,0 +1,87 @@
+a {
+    text-decoration: none;
+    color: black;
+}
+
+/* top */
+.addbotan-position {
+    display: flex;
+    flex-direction: row;
+}
+
+.add-botan {
+    width:50px;
+    height:30px;
+    margin-top:23px;
+    margin-left:5px;
+}
+
+ul {
+    padding-left:18px;
+    
+}
+
+/* new */
+.newmemo {
+    display: flex;
+    flex-direction: column;
+}
+
+.title-new-memo {
+    height:30px;
+    width:250px;
+}
+
+.content-new-memo {
+    margin-top:20px;
+    height:100px;
+    width:250px;
+}
+
+.add-new-memo {
+    margin-top:20px;
+    height:35px;
+    width:45px;
+}
+
+/* show */
+.title-show-font {
+    font-size:25px;
+    margin-bottom:3px;
+}
+
+.button-show-layout {
+    display: flex;
+    flex-direction: row;
+}
+
+.button-show-update {
+    padding-right:15px;
+}
+
+/* edit */
+.edit-layout {
+  display: flex;
+  flex-direction: column;
+}
+
+.title-edit-memo {
+    height:30px;
+    width:250px;
+}
+
+.content-edit-memo {
+    margin-top:20px;
+    height:100px;
+    width:250px;
+}
+
+.add-edit-memo {
+    margin-top:20px;
+    height:35px;
+    width:45px;
+}
+
+p {
+    margin:0px
+}
